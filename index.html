@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Programador de Divs</title>
+    <style>
+      body {
+        display: flex;
+        height: 100vh;
+        margin: 0;
+        align-items: stretch;
+      }
+
+      #htmlArea {
+        flex: 1;
+        padding: 10px;
+        font-family: monospace;
+        border-right: 1px solid #ccc;
+      }
+
+      #cssArea {
+        flex: 1;
+        padding: 10px;
+        font-family: monospace;
+      }
+
+      #preview {
+        flex: 1;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="htmlArea" contenteditable="true" oninput="updatePreview()">
+      &lt;div id='miDiv'&gt;¡Hola! Soy un div&lt;/div&gt;
+    </div>
+
+    <div id="cssArea" contenteditable="true" oninput="updatePreview()">
+      /* Agrega aquí tus estilos CSS */ #miDiv { /* Propiedades */ width:
+      <input
+        type="text"
+        id="widthInput"
+        onchange="updatePreview()"
+        value="200px"
+      />; height:
+      <input
+        type="text"
+        id="heightInput"
+        onchange="updatePreview()"
+        value="100px"
+      />; background-color:
+      <input
+        type="text"
+        id="backgroundColorInput"
+        onchange="updatePreview()"
+        value="#f0f0f0"
+      />; margin:
+      <input
+        type="text"
+        id="marginInput"
+        onchange="updatePreview()"
+        value="10px"
+      />; padding:
+      <input
+        type="text"
+        id="paddingInput"
+        onchange="updatePreview()"
+        value="20px"
+      />; border:
+      <input
+        type="text"
+        id="borderInput"
+        onchange="updatePreview()"
+        value="1px solid #ccc"
+      />; border-radius:
+      <input
+        type="text"
+        id="borderRadiusInput"
+        onchange="updatePreview()"
+        value="0"
+      />; /* Flexbox */ display:
+      <select id="displaySelect" onchange="updatePreview()">
+        <option value="flex">flex</option>
+        <option value="inline-flex">inline-flex</option></select
+      >; justify-content:
+      <select id="justifyContentSelect" onchange="updatePreview()">
+        <option value="center">center</option>
+        <option value="flex-start">flex-start</option>
+        <option value="flex-end">flex-end</option>
+        <option value="space-around">space-around</option>
+        <option value="space-between">space-between</option></select
+      >; align-items:
+      <select id="alignItemsSelect" onchange="updatePreview()">
+        <option value="center">center</option>
+        <option value="flex-start">flex-start</option>
+        <option value="flex-end">flex-end</option>
+        <option value="stretch">stretch</option></select
+      >; flex-direction:
+      <select id="flexDirectionSelect" onchange="updatePreview()">
+        <option value="row">row</option>
+        <option value="row-reverse">row-reverse</option>
+        <option value="column">column</option>
+        <option value="column-reverse">column-reverse</option></select
+      >; }
+    </div>
+    <div id="preview"></div>
+
+    <script>
+      function updatePreview() {
+        const width = document.getElementById("widthInput").value;
+        const height = document.getElementById("heightInput").value;
+        const backgroundColor = document.getElementById(
+          "backgroundColorInput"
+        ).value;
+        const margin = document.getElementById("marginInput").value;
+        const padding = document.getElementById("paddingInput").value;
+        const border = document.getElementById("borderInput").value;
+        const borderRadius = document.getElementById("borderRadiusInput").value;
+        const display = document.getElementById("displaySelect").value;
+        const justifyContent = document.getElementById(
+          "justifyContentSelect"
+        ).value;
+        const alignItems = document.getElementById("alignItemsSelect").value;
+        const flexDirection = document.getElementById(
+          "flexDirectionSelect"
+        ).value;
+
+        const htmlCode = document.getElementById("htmlArea").innerText;
+        const cssCode = `#miDiv {
+        /* Propiedades */
+        width: ${width};
+        height: ${height};
+        background-color: ${backgroundColor};
+        margin: ${margin};
+        padding: ${padding};
+        border: ${border};
+        border-radius: ${borderRadius};
+
+        /* Flexbox */
+        display: ${display};
+        justify-content: ${justifyContent};
+        align-items: ${alignItems};
+        flex-direction: ${flexDirection};
+      }`;
+
+        const preview = document.getElementById("preview");
+        preview.innerHTML = htmlCode;
+        const style = document.createElement("style");
+        style.innerHTML = cssCode;
+        preview.appendChild(style);
+      }
+
+      // Ejecutamos updatePreview al cargar la página para mostrar el div inicial con los estilos iniciales
+      updatePreview();
+    </script>
+  </body>
+</html>
